@@ -249,7 +249,50 @@ text-overflow，可以用来多行文本的情况下，用省略号“...”隐藏超出范围的文本 。
 
 
 
+两栏布局的一种方式:
+父盒子{
+padding-right:右盒子的宽度;
+position:relative;
+}
+左盒子{
+float:left;
+width:100%;
+}
+右盒子{
+position:absolute;
+right:0
+}
 
 
 
 
+display:table;和display:table-cell实现居中
+单行文字居中:
+父盒子{display:table}    此元素会作为块级表格来显示（类似 <table>），表格前后带有换行符
+子盒子(要居中的元素){display:table-cell;vertical-align:middle;display:inline-block}  此元素会作为一个表格单元格显示（类似 <td> 和 <th>,再采用垂直居中的方法得到需要的结果
+
+多行文字或元素居中
+ 父盒子{display:table} 
+子盒子(需要在要居中的元素外套的盒子){display:table-cell;vertical-align:middle;text-align: center;}
+
+块元素居中
+父盒子{display:table-cell;vertical-align:middle;text-align: center;}
+子盒子{display:inline-block}
+
+
+
+
+
+1.伪元素是什么时候有的
+         伪元素是ie6就有的 而且还是微软的ie首先用的 所以没有兼容性  以前叫伪类,
+         然后在css3中 因此进行了归类 把before和after归类到了伪元素
+2.:before和::before哪个好?
+         其实在用的过程中 单冒号好   因为兼容性好
+
+
+
+
+某元素:before和某元素:after是相对于该元素定位的
+:before和:after的content属性可以通过url连接图片以及获取title
+  content: url("https://....jpg");
+  content: attr(title);
