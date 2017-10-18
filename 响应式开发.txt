@@ -118,3 +118,13 @@ console.timeEnd('timer');清除定时器,输出执行时间
 私有前缀使用情况：
 www.caniuse.com
 vscode的autoPrefix
+
+
+
+Gzip压缩:网站从服务器发送到客户机的过程中会进行gzip压缩,而zepto会进行两次压缩
+
+
+
+zepto有5个核心模块（默认）,其余模块都是按需加载(定制)
+
+如果想引入多个模块需要引入多次，这就用到了定制
