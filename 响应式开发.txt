@@ -1,0 +1,120 @@
+百分比布局中需要注意的问题:
+padding,margin设置百分比时都是相对于父元素的宽度
+
+
+引入reset.css可以清除浏览器默认样式
+引入normalize.css可以兼容各个移动端浏览器
+
+
+
+link:favicon引入favicon的emmet语法
+
+
+
+
+在移动端所有布局都需要一个布局容器
+
+
+
+在移动端表单需放置在div中
+
+
+设置背景图片或图片大小时需注意图片是二倍图
+
+
+用于多栏布局:
+栅格化布局  整体布局样式
+flex布局    局部的伸缩样式
+
+flex弹性盒子：
+
+  给伸缩容器的
+      display:flex
+      flex-direction
+      justify-content
+      flex-wrap
+        换行
+        不换行
+      align-content规定了伸缩项目在侧轴上的对齐方式(处理换行后的伸缩项目)
+      align-items   规定了伸缩项目在侧轴上的对齐方式(处理不换行的伸缩项目)
+
+    给伸缩项目的
+
+      flex 规定了伸缩项目占伸缩容器剩余空间的比例
+      order 伸缩项目在伸缩容器中的排列顺序  值越小越靠前
+      align-self 自我对齐
+
+ 在前端大概有三个难题:
+    1.适配
+    2.移动端事件及兼容性
+    3.性能优化
+        https://github.com/windiest/Front-end-tutorial
+
+
+
+移动端都用二倍图(除非是矢量图)
+
+
+
+
+
+
+
+自动出现省略号:
+1.强制一行显示，并且自动出现省略号
+	whie-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+2.强制两行行显示，并且自动出现省略号
+display:-webkit-box;/*类似于display:flex*/
+-webkit-box-orient:vertical;/*类似于flex-direction*/
+-webkit-line-clamp:2;/*两行显示*/
+overflow:hidden;
+
+-webkit-line-clamp限制在一个块元素显示的文本的行数。
+-webkit-line-clamp 是一个 不规范的属性（unsupported WebKit property），它没有出现在 CSS 规范草案中。
+为了实现该效果，它需要组合其他外来的WebKit属性。常见结合属性：
+display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。
+-webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。
+text-overflow，可以用来多行文本的情况下，用省略号“...”隐藏超出范围的文本 。
+
+
+
+
+
+用background-origin和background-clip设置触点导航可加大触点面积而不影响精灵图的显示
+
+background-origin
+padding-box： 从padding区域（含padding）开始显示背景图像。 
+border-box： 从border区域（含border）开始显示背景图像。 
+content-box： 从content区域开始显示背景图像。
+
+background-clip
+padding-box： 从padding区域（不含padding）开始向外裁剪背景。 
+border-box： 从border区域（不含border）开始向外裁剪背景。 
+content-box： 从content区域开始向外裁剪背景。 
+text： 从前景内容的形状（比如文字）作为裁剪区域向外裁剪，如此即可实现使用背景作为填充色之类的遮罩效果
+
+
+
+
+设置一栏固定另一栏随页面变化自适应需要用flex布局（固定的一栏用width指定css宽度）
+
+
+
+
+iScroll是一个javascript滚动插件，可以实现在移动端手指滑动可以移动一段距离，并且会有惯性效果 
+
+
+
+console.time('timer');设置定时器
+console.timeEnd('timer');清除定时器,输出执行时间
+
+
+
+私有前缀由来
+
+
+私有前缀使用情况：
+www.caniuse.com
+vscode的autoPrefix

@@ -1,0 +1,255 @@
+
+transform会升高元素层级
+解决方式:
+transform:translateZ(1px);
+
+
+用行内块排列为一行而不用浮动：
+多个行内块元素间会有间距(原因是换行引起的)
+解决方式：
+给所属父元素加font-size:0;
+
+
+
+
+固定背景图片，不随滚动条滚动
+background-attachment:fixed;
+
+
+
+
+css3中的calc()可用于计算
+注意:在calc括号中运算符两边必须有空格
+margin-top:calc(75px - 44px);
+
+
+
+页面中有时候会出现h1中有文字但其宽度或高度为0致使其文字不显示,
+其目的是为了seo优化
+h1{
+height:0;
+padiing-top:213px;//通过padding-top撑开盒子
+background-image:url()//通过背景图片显示标题
+}
+
+
+设置text-align时该元素必须是块元素
+a{
+display:block;
+text-align:right
+}
+
+
+
+h5新增DOM操作
+1.类名操作:
+	a.添加类名
+	ele.classList.add()
+	b.删除类名
+	ele.classList.remove()
+	c.切换类名，有则删除无则添加
+	ele.classList.toggle()
+	d.判断是否包含某个类名，返回值为boolean
+	ele.classList.contains()
+
+2.自定义属性:
+	a.格式:data-*
+	b.通过js获取自定义属性值
+	ele.dataset.*
+	   注意:多个"-"定义的属性需用驼峰命名获取
+	   data-small-name
+	   ele.dataset.smallName
+	c.通过js设置自定义属性及值
+	ele.dataset.news = "新闻";页面就可以看到data-news="新闻"
+
+
+h5主要语义化标签的作用
+1.利于开发人员维护
+2.利于seo优化
+3.利于残障人士阅读网页
+h5特殊场景下的语义化标签
+mark 标记
+details详细信息
+summary 详细信息的标题
+progress(max,value当前值)进度条，不同浏览器不同
+
+
+如何在低版本浏览器(指兼容ie8及其以下浏览器)中兼容html5语义化标签:
+注意:有默认样式的语义化标签不能作兼容
+1.引入html5shiv.js（只能放在head标签中）
+	注意：main标签在html5中不起作用,需通过document.create('main')，
+	并且需要用display:block转化为块元素（默认时创建的元素为行内元素）
+2.添加条件注释(emmet语法:cc:ie)	
+3.lt less than小于
+  <!--[if lt IE9]><![endif]-->
+  lte小于等于
+
+
+
+网络状态检测
+注意:检测的是正常情况(wifi,局域网)，且是网络变化的瞬间
+1.在线:window.addEventListener('online',function(){})
+2.离线:window.addEventListener('offline',function(){})
+
+
+
+
+video标签的poster属性可用来添加字体图标
+
+
+
+多媒体
+ 属性
+    duration：返回当前音频/视频的长度（以秒计） 
+    paused：返回音频/视频是否暂停 
+    currentTime：设置或返回音频/视频中的当前播放位置（以秒计）
+    ended：返回音频/视频的播放是否已结束(不用)
+
+  > 事件
+    oncanplay：当文件就绪可以开始播放时运行的脚本（缓冲已足够开始时）。
+    ontimeupdate： 当播放位置改变时（比如当用户快进到媒介中一个不同的位置时）运行的脚本。 
+    onended：当媒介已到达结尾时运行的脚本（可发送类似“感谢观看”之类的消息）。
+
+  > 方法
+    play()：开始播放音频/视频 
+    pause()：暂停当前播放的音频/视频
+
+  > 视频全屏时会出现默认控制器需要去除掉默认的控制条
+	
+    video::-webkit-media-controls-enclosure {
+      /*禁用播放器控制栏的样式*/
+      display: none !important;
+    }
+
+  > 视频全屏时显示自定义的控制条
+
+     z-index必须大于2147483647
+     
+## WebStorage API
+  > 什么是WebStorage 
+
+    所谓的WebStorage指的是客户端存储,在这里指的是浏览器端存储,比如在网站上自动登陆这些功能,其实就是把一些少量的数据存储在浏览器等客户端中,这样可以减少没必要的请求到服务器,降低服务器的压力,给用户提供更好的体验.
+  
+  > WebStorage的三种存储方式(务必要记住)
+
+    cookie: 广泛使用 存储量4kb左右 会在浏览器和服务器间传递  一般由服务器端创建 可以设置存储时间(默认和session一样) cookie不容易操作
+
+    session(会话)Storage: H5新增 存储量5M左右(存储在浏览器中) 只会在浏览器存储数据 只会由浏览器端创建 存储时间是打开浏览器开始关闭浏览器消失  方法简洁明了 容易操作
+
+    local(本地)Storage: H5新增 存储量5M左右(存储在硬盘中) 只会在浏览器存储数据 只会由浏览器端创建 永久存储除非手动删除 方法简介明了 容易操作
+
+  > sessionStorage
+
+    添加数据: window.sessionStorage.setItem(key,value);
+    获取数据: window.sessionStorage.getItem(key);
+    移除数据: window.sessionStorage.removeItem(key);
+    清除数据: window.sessionStorage.clear();
+    获取key:  window.sessionStorage.key(n从0开始);
+
+    应用场景: 存储一些少量临时的数据
+  > localStorage
+
+    添加数据: window.localStorage.setItem(key,value);
+    获取数据: window.localStorage.getItem(key);
+    移除数据: window.localStorage.removeItem(key);
+    清除数据: window.localStorage.clear();
+    获取key:  window.localStorage.key(n);
+
+    应用场景: 网页换肤 京东购物车
+
+
+
+
+## 拖拽
+
+  > 为什么需要拖拽
+
+    在写邮件的时候,我们经常会碰到诸如拖拽上传这样的需求,那么就需要用到拖拽
+
+  > 拖拽元素和目标元素
+
+    拖拽元素: 除了img标签,其他标签想要成为拖拽元素,必须给标签设置draggable="true"
+    目标元素: 拖拽元素被拖拽到的目标
+
+  > 拖拽元素的事件
+
+    dragstart 当用户开始拖动一个元素或者一个选择文本的时候 dragstart 事件就会触发。
+    drag      当用户完成dragstart之后,拖动一个元素的过程中,drag 事件会一直触发
+    dragend   当用户结束拖动一个元素的时候,dragend事件就会触发
+
+  > 目标元素的事件
+
+    dragenter 当用户拖动一个元素,进入目标元素边缘范围的时候,dragenter 事件就会触发
+    dragover  当用户拖动一个元素,进入目标元素且在目标元素范围内,dragover事件就会触发，检测的是鼠标
+    drop      当用户拖动一个元素被拖拽释放到一个有效的目标元素时,drop事件会触发
+
+  > 传递数据
+    ev.dataTransfer.setData(type,data) 设置拖动数据
+    ev.dataTransfer.getData(type) 获取拖动数据
+    ev.dataTransfer.files 本地文件列表
+
+
+
+
+
+
+## 文件读取
+
+  > 为什么需要文件读取
+    在很久以前,前端并没有读物文件内容的能力,在很多时候,预览文件内容变得比较困难,在HTML5中新增了文件读取API
+
+  > 文件读取的过程
+
+    1. 实例化FileReader对象
+
+    2. 使用FileReader对象的读取文件的方法准备读取文件
+      读图片  readAsDataURL();   result属性中将包含一个data: URL格式的字符串以表示所读取文件的内容.
+      读文本  readAsText();      result属性中将包含一个字符串以表示所读取的文件内容.
+    3. 等待读取操作完成(事件)
+        onload 当读取操作成功完成时调用
+    
+    4. 通过result属性获取文件内容
+
+
+
+
+字体图标的原理是更改其:before中content的值
+制作字体图标是用svg图通过icomoon官网制作
+
+
+
+拖拽时dragenter检测的是鼠标的位置
+如果拖拽的元素是img则不需设置draggable="true"
+在dragover时需阻止浏览器显示或打开图片及文或元素的默认行为(e,preventDefault)
+
+
+
+
+
+
+自动出现省略号:
+1.强制一行显示，并且自动出现省略号
+	whie-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+2.强制两行行显示，并且自动出现省略号
+display:-webkit-box;/*类似于display:flex*/
+-webkit-box-orient:vertical;/*类似于flex-direction*/
+-webkit-line-clamp:2;/*两行显示*/
+text-overflow:ellipsis;
+
+
+-webkit-line-clamp限制在一个块元素显示的文本的行数。
+-webkit-line-clamp 是一个 不规范的属性（unsupported WebKit property），它没有出现在 CSS 规范草案中。
+为了实现该效果，它需要组合其他外来的WebKit属性。常见结合属性：
+display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。
+-webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。
+text-overflow，可以用来多行文本的情况下，用省略号“...”隐藏超出范围的文本 。
+
+
+
+
+
+
+
+

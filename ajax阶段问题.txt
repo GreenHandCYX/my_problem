@@ -1,0 +1,262 @@
+模板引擎:
+书写模板引擎的模板代码时为了防止页面先行读取该代码块需这样写:
+  <script id="tpl2" type="text/template">
+        <!-- 不按js解析 -->
+        <ul>
+            <li>姓名:
+                <%= name %>
+            </li>
+            <li>年龄:
+                <%= age %>
+            </li>
+            <li>学校:
+                <%= school %>
+            </li>
+        </ul>
+    </script>
+注意:使用模板引擎时应注意传入的数据应为json解码后的对象或数组,并且必须以对象的形式在模板函数中调用:
+template('模板id',{
+	lists:JSON.parse(xhr.responseText)
+});
+
+正则对象的exec方法可将匹配的结果放入一个数组中
+
+
+跨域的方法:
+1.cors跨域：访问的资源设置响应头为header('Access-Control-Allow-Origin:*');
+2.反向代理（proxy跨域）:设置一个php文件通过file_get_contents('http://www.baidu.com');实现跨域
+3.JSONP:利用浏览器未对标签的href和src属性做同源限制
+	事先在前端定义好一个函数，
+	<script>
+    	function abc(arg) {
+        	console.log(arg); //指后台传来的数据
+    	}
+	</script>
+
+    	然后通过src发起一个跨域的请求，并且将这个预先定义好的函数的名字传递给服务端
+	<script src="http://api.com/moni.php?callback=abc"></script>
+
+
+    	然后服务端返回这个预先定义好的函数的调用，并传参（参数即服务端的数据）
+	header('Content-Type:text/javascript;charset=utf-8');
+	$arr = array(
+    	'name'=>'小明',
+   	 'age'=>20
+	);
+	$data = json_encode($arr);
+	$callback = $_GET['callback'];
+	echo $callback.'('.$data.')';
+
+
+    	注意:JSONP是以get方式请求的
+	     由于要返回函数的执行所以必须在响应的php中设置响应头为js格式
+
+
+
+Location.pathname指当前页面所在路径
+
+
+
+利用表单进行异步数据请求可以通过表单的submit事件监听数据提交（并且按回车也可以提交）
+注意：需要通过return false阻止表单的默认提交刷新整个页面的事件
+
+
+
+jquery中可以使用serialize获取表单提交的所有数据，必须有name,返回值格式为key=val&key1=val1&...
+
+
+jquery中的AJAX的全局配置会被局部配置层叠掉
+
+
+jquery的ajax会自动根据请求方式设置响应头  
+jquery的ajax的data支持'name=小明&age=16'的字符串和对象
+
+
+jquery的ajax默认不会将请求来的json格式的数据进行解码:
+解决方式:1.在目标文件中设置响应头为header('Content-Type:text/json');
+	2.在success中转码JSON.parse(info)
+              	
+
+
+
+ //jquery将ajax的请求和响应整个过程分为6个阶段
+        //准备发送阶段ajaxStart
+        //发送阶段ajaxSend
+        //成功/失败阶段ajaxSuccess/ajaxError
+        //完成阶段ajaxComplete
+        //结束阶段ajaxStop
+注意:这六个阶段函数只能通过$(document).ajaxStart调用
+其中：ajaxStart指只要有一个开始则执行
+	ajaxStop指只有最后一个请求都完成时才会执行
+
+$(ele).load()//可以用于异步加载页面
+
+
+
+xhr2的timeout可设置超时及超时处理函数
+
+
+xhr2的内置对象FormData可以获取到表单中所有name所指的值,  var formdata = new FormData(this);
+并且可以通过其append方法追加新的数据传到后台,   formdata.append('hobby', '睡觉');
+并且该数据为二进制格式(可用于文件上传) xml.send(formdata);
+注意:必须是post方式xml.open('post', './formdata.php');
+
+
+FormData作文件上传时将this.files作为append的参数
+
+
+xhr.upload.onprogress可以监听文件上传的进度e.loaded指已上传文件大小,e.total指总文件大小
+
+
+
+前端向后台发送请求有几种方式？
+
+标签的src和href
+背景图片的url
+fom表单的提交(get及post)
+XMLHttpRequest的get和post方式提交
+$.ajax();的get和post方式
+$.get();
+$.post();
+$.getScript();
+$.getJSON();
+$.load();
+$.ajaxSetup();
+
+
+
+
+ 注：GET和POST请求方式的差异（面试题）
+	1、GET请求主体为空，使用xhr.send(null)
+	2、GET可以通过在请求URL上添加请求参数
+	3、POST可以通过xhr.send('name=itcast&age=10')
+	4、POST需要设置
+ 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+ 	5、GET效率更好（应用多，但是登录注册需保密性好，所以登录注册常用POST）
+	6、GET大小限制约4K，POST则没有限制
+	7.GET主要用于从服务器查询数据，POST用于向服务器提交数据
+
+
+
+
+
+
+
+xhr.open第三个参数为bool类型，默认为true，以异步方式发送，改为false为同步
+xhr.open('get', './example.php');
+xhr.open('get','./example.php',false);
+
+
+
+
+
+
+
+
+
+
+
+
+IP地址和域名不是一对一的关系。  
+把ip与域名对应起来这主要就是DNS服务来干的事。
+是这样，DNS中可以设置N个域名对应一个IP，而且域名还可以对应其它的域名，但域名和IP都是唯一的
+
+
+
+
+
+
+
+
+ ajax响应数据类型只可以是json格式或xml格式
+
+
+
+
+
+ ajax请求方式支持get、post、put和delete
+
+
+
+
+跨域解决方案：
+1.JSON with Padding，是一种解决跨域的方案。
+2.window.postMessage()
+3.CORS
+4.document.domain + iframe 
+5.动态创建script
+6.location.hash + iframe
+7.window.name + iframe
+8.web sockets
+详细链接地址 http://blog.csdn.net/joyhen/article/details/21631833
+
+
+
+用FormData传递表单数据时需注意：
+ 1.实例化new FormData(form)，将表单元素form传进去
+ 2.会返回一个对象，此对象可以直接做为xhr.send(formData)的参数
+ 3.此时我们的数据就是以二进制形式传递了
+ 注意：我们这里只能以post形式传递，浏览器会自动为我们设置一个合适的请求头
+
+
+
+
+
+
+
+
+
+
+
+cookie 和session 的区别：操作session需开启session   session_start()
+
+1、cookie数据存放在客户的浏览器上，session数据放在服务器上。
+
+2、cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗
+   考虑到安全应当使用session。
+
+3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能
+   考虑到减轻服务器性能方面，应当使用COOKIE。
+
+4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
+
+5、所以个人建议：
+   将登陆信息等重要信息存放为SESSION
+   其他信息如果需要保留，可以放在COOKIE中
+
+
+
+
+
+
+
+jQuery的$.ajax方法响应数据类型有如下几种：xml、html、script、json、jsonp、text
+
+本质上原生ajax响应数据格式只有2种：text和xml，分别对应xhr.responseText和xhr.responseXML
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

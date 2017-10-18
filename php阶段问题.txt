@@ -1,0 +1,262 @@
+php是弱类型语言，数据类型为:字符型,整型，浮点型，布尔型，数组，null，对象，资源
+
+
+
+在使用双引号定义字符串时能对变量进行解析，在使用单引号定义字符串时不能对变量进行解析
+且单引号执行效率要比双引号高
+在书写字符串的时候, 如果字符串里面含有 $+名字, 那么 php 引擎会将其作为求值运算，将变量的值取出来.
+ 双引号的字符串有较为全面的转义字符, 单引号的字符串很多没有转义
+
+
+
+
+在 PHP 中，创建一个对象，需要先创建一个类，根据类来创建对象：
+分三步:
+1.创建类：
+通过 关键字 class 创建
+class 名称 {
+// 定类的结构
+} 
+
+2.实例对象
+3.通过 -> 来调用对象的属性或方法
+
+
+
+访问权限：
+public关键字定义的属性和方法到处都可以访问
+protected关键字定义的属性和方法只有继承父类后,子类才能访问
+private关键字定义的属性和方法是私有的，只有在当前类内部才能访问
+
+
+php定义函数时可以设置参数的默认值
+function sayHi($name='小红') {
+echo '你好 ' . $name;
+}
+
+
+
+
+
+
+
+
+
+
+
+//访问数据库:
+//默认情况php不支持访问mysql，需要设置php配置文件开启一个扩展
+
+//1.登录数据库
+//返回资源类型
+$connect = mysqli_connect('localhost','root','123456');
+//$connect1 = mysqli_connect('127.0.0.1','root','123456');
+//2.选择数据库
+mysqli_select_db($connect,'study');
+
+//3.设置编码集,解决乱码
+mysqli_set_charset($connect,'utf-8');
+
+//4.发送指令
+mysqli_query($connect,"insert into students (name,age,gender,hometown) values ('呵呵',16,'男','湖北')");
+
+
+
+
+echo会将数字输出为字符串,将true输出为1，将false输出为空'',不能输出数组的完整结构
+用print_r输出数组
+var_dump输出会包含数据类型及长度
+
+
+php中用'.'来拼接字符串
+
+
+php中使用count()来计算数组的长度
+
+
+
+表单name属性的是用来提供给服务端接收所传递数据而设置的，name如需相同如checkbox，则需要加[]变为数组，单选框除外
+
+
+
+上传文件时需要设置 enctype="multipart/form-data"，且只能post以方式发起请求
+
+
+$_REQUEST接收任意方式传递的值
+
+
+
+http请求头:通过超全局数组$_SERVER可以查看请求头的格式
+1.User-Agent:可用于判断不同客户端以响应不同页面
+	//1.获取当前客户端信息
+	$agent = $_SERVER['HTTP_USER_AGENT'];
+	//2.判断并设置相应的响应头的重定向路径
+	if(strpos($agent,'iPhone')){
+		header('Location: http://m.jd.com');
+	} else {
+		header('Location: http://jd.com');
+	}
+
+2.Accept：*/* -接受的文档MIME类型
+ // MIME类型
+    // text/html
+    // text/css
+    // text/javascript
+    // image/jpge
+
+3.Referer：-从哪个URL跳转过来的
+
+4.Accept-Encoding：-可接受的压缩格式
+
+
+
+
+get方式请求数据时通常不具有请求主体，参数在url中
+post请求数据时将参数放入请求主体中
+
+
+
+响应头:
+1.在php中设置header('Content-Type: text/css');规定以何种方式解析响应的数据
+
+2.header('Cache-Control:max-age=600000');控制缓存后再次请求的时间间隔(协商缓存)
+
+3.header('Refresh:3;url=http:www.baidu.com')使用PHP的header设置Refresh响应头可以对当前页面进行刷新，也可以刷新之后跳转到其它页面
+
+4.将文件地址赋值给a链接，服务器会自动设置相应的Content-Type告知浏览器应如何解析，如果浏览器没有能力解析，那么将会自动下载。
+取消这种默认解析行为而改为下载需要作如下操作:
+	//需要专门提供下载而不是让浏览器进行解析(如:图片默认放大显示而不下载)，
+	//可以通过修改Content-Type和Content-Disposition实现。
+	//1.转化为二进制流
+	header('Content-Type:application/octet-steam');
+	//2.更改下载时的文件名及后缀
+	header('Content-Disposition:attachment;filename=girl.jpg');
+	//3.下载资源
+	$img = './avatar_1.jpg';
+	//4.清空缓存区(每次都会增量下载，会有之前的缓存，属于性能优化)
+	ob_clean();
+	//5.读取文件
+	readfile($img);
+
+
+
+
+
+
+php函数内部声明的变量拥有local（局部）作用域，只能在函数内部进行访问
+php函数之外声明的变量拥有global（全局）作用域，只能在函数以外进行访问,若要访问需要用$_GLOBALS或global关键字,并且可以在局部修改全局变量
+
+
+static声明的变量是静态变量相当于函数的闭包，会存储在内存中，而不随函数执行完毕即删除
+
+php中的常量:
+PHP中使用define(参数A，参数B,bool)定义常量。
+     注意:
+          1.常量一旦声明，不能被重新赋值，不能重复定义同一个常量,常量必须赋值；
+          2.第三个参数默认为false，如果为true则不区分大小写；
+          3.常量常用于定义网站配置信息
+          4.define('AUTHOR'); // 只声明不赋值不可以
+
+
+
+
+
+
+
+
+
+
+cookie 和session 的区别：操作session需开启session   session_start()
+
+1、cookie数据存放在客户的浏览器上，session数据放在服务器上。
+
+2、cookie不是很安全，别人可以分析存放在本地的COOKIE并进行COOKIE欺骗
+   考虑到安全应当使用session。
+
+3、session会在一定时间内保存在服务器上。当访问增多，会比较占用你服务器的性能
+   考虑到减轻服务器性能方面，应当使用COOKIE。
+
+4、单个cookie保存的数据不能超过4K，很多浏览器都限制一个站点最多保存20个cookie。
+
+5、所以个人建议：
+   将登陆信息等重要信息存放为SESSION
+   其他信息如果需要保留，可以放在COOKIE中
+
+
+
+	
+file_get_contents('./04file.txt');可以读取图片等二进制文件及在跨域中作反向代理读取网页
+file_put_contents();写入的数据支持数组和字符串
+都会检测路径是否存在
+
+
+
+
+
+require/require_once/include/include_once文件包含会自动将引入的文件按php解析即使引入文件不是php格式的
+如果被包含文件使用 return 关键字，可以接收其返回值。
+
+
+php默认不支持宽字符集（中文日语等）,需通过修改php配置使之支持
+
+
+
+
+//$_FILES对应的文件name获取的数组中：
+//tmp_name单元是文件被上传上来后的临时目录(通常是固定的)
+//临时文件默认存储在C:\Windows\Temp中，可以通过修改 php 的配置文件更改（一般不改）
+//php中模拟文件上传:
+// PHP 下先将文件放到某个临时目录（PHP配置文件设定）
+// 然后由开发者将上传上来的文件转移到具体的目录
+// 通过 move_uploaded_file 来实现
+// 进行文件转移时，目标目录必须存在,必须指定名字
+//如果目标名称文件已经存在，将会被覆盖。
+move_uploaded_file($_FILES['upfile']['tmp_name'],'./images/abc.jpg');
+
+
+
+
+
+http（超文本传输协议）特点：
+	* 简单灵活    
+	* 无连接：指每次连接只处理一个请求，服务器处理完客户端的请求并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。
+	* 无状态：指协议对于事务处理没有记忆能力，这在现实应用中产生了不良有影响。
+	* 注意：通过cookie和session可以弥补HTTP无状态的缺陷。
+
+
+
+
+
+cookie是存储在客户端（浏览器）中的
+
+cookie被客户端以请求头的方式传递给了后端，后端是可以接收并处理cookie，在PHP中通过超全局数组 $_COOKIE获取。
+cookie是存储在客户端（浏览器）中的，是由客户端（浏览器）实现操作的，但是服务端也可间接的对cookie进行干预。
+在PHP中当调用setcookie函数时，会自动设置一个响应头Set-Cookie，通知客户端（浏览器）设置一个cookie。
+
+
+在Javascript中通过document.cookie进行读取和设置
+
+删除cookie时只需将expires设置为负数
+
+cookie是有大小限制的约4k
+
+jquery插件jquery.cookie.js对cookie进行处理:
+1.设置cookie $.cookie('name','value',{})第三个参数可省略 
+2.读取cookie $.cookie('name')
+3.删除cookie $.removeCookie('name')
+
+
+
+
+session:存储在服务端的数据，主要记录客户端的访问状态
+。
+Session 原理是：为每个访问者创建一个唯一的标识 (UID)，并基于这个标识来存储变量，一般标识存储在cookie 中。
+
+php中操作session的方式:
+1、需要先开启session
+2、通过超全局数组 $_SESSION操作session
+
+session不是独立使用的，通常需要配合cookie一起使用，
+当服务端设置一个session时(存储在服务端)会自动设置响应头Set-Cookie通知客户端（浏览器）
+设置一个名为（默认）PHPSESSID的cookie(存储在客户端)，客户端（浏览器）下次再发起请求时，
+会将这个cookie以请求头的方式回传至服务端，服务端再根据这个cookie获取相对应的session。
