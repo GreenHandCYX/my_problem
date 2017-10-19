@@ -235,13 +235,59 @@ jQuery的$.ajax方法响应数据类型有如下几种：xml、html、script、json、jsonp、text
 本质上原生ajax响应数据格式只有2种：text和xml，分别对应xhr.responseText和xhr.responseXML
 
 
+HTTP协议主要由请求和响应构成
+
+
+注：当以post形式提交表单的时候，请求头里会设置Content-Type:application/x-www-form-urlencoded，以get形式当不需要
+
+
+
+js 是单线程,js 的代码执行必须是一步一步执行的. 
+写在前面的一定会在前面运行, js 代码是排队执行的.
+单线程的程序我们常常称为同步代码.
+
+
+计算机在多个线程间执行每一个程序的代码, 被称为多线程浏览器是多线程
 
 
 
 
 
+AJAX（Asynchronous JavaScript and XML）异步指程序的执行顺序不依赖程序本身的书写顺序，相反则为同步
 
 
+XMLHttpRequest本质基于HTTP协议实现通信
+
+
+由于readystatechange事件是在xhr对象状态变化时触发，也就意味着这件事会被触发多
+
+
+
+HTTP请求3个组成部分与XMLHttpRequest方法的对应关系
+请求行
+xhr.open('get','./index.php');
+请求头
+xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');//get方式不需要设置
+请求主体
+xhr.send(null);//或send(post时传递的数据)
+获取状态行（包括状态码&状态信息）
+xhr.status //状态码
+xhr.statusText //状态信息
+获取响应头
+xhr.getResponseHeader('Content-Type');////获取指定响应头信息
+xhr.getAllResponseHeaders();//获取所有响应头信息
+响应主体
+xhr.responseText
+
+
+
+
+JSON数据在不同语言进行传输时，类型为字符串，不同的语言各自也都对应有解析方法，需要解析完成后才能读取
+
+
+JavaScript解析方法：JSON.parse()、JSON.stringify()
+
+PHP解析方法:json_encode()、json_decode()
 
 
 

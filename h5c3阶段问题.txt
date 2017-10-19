@@ -236,7 +236,7 @@ video标签的poster属性可用来添加字体图标
 display:-webkit-box;/*类似于display:flex*/
 -webkit-box-orient:vertical;/*类似于flex-direction*/
 -webkit-line-clamp:2;/*两行显示*/
-text-overflow:ellipsis;
+overflow:hidden
 
 
 -webkit-line-clamp限制在一个块元素显示的文本的行数。
@@ -296,3 +296,19 @@ display:table;和display:table-cell实现居中
 :before和:after的content属性可以通过url连接图片以及获取title
   content: url("https://....jpg");
   content: attr(title);
+
+
+两端对其的小技巧
+1.给需要两端对齐元素的父元素{text-align:justify}
+2.父元素:after{
+	content:'';
+	display:inline-block;
+	width:100%;
+	overflow:hidden
+}
+3.子元素{
+display:inline-block;}
+
+
+
+css中通过*设置的样式无法在:after和:before内起作用

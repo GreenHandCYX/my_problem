@@ -129,3 +129,17 @@ Gzip压缩:网站从服务器发送到客户机的过程中会进行gzip压缩,而zepto会进行两次压缩
 zepto有5个核心模块（默认）,其余模块都是按需加载(定制)
 
 如果想引入多个模块需要引入多次，这就用到了定制
+
+
+
+
+
+js获取屏幕宽度以替换媒体查询的方法
+document.body.scrollWidth精度有时不太精确
+document.body.clientWidth
+之后通过js给html设置font-size:这个宽度/份数
+
+
+
+bootstrap中通常在container容器中加一个class为row的div以达到通栏的效果,其原因是:
+container默认会有左右各15px的padding,而row有margin-left:-15px;margin-right:-15px;
