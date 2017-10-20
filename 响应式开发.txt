@@ -1,3 +1,7 @@
+html中引入图标的快捷键link:favicon
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+
 百分比布局中需要注意的问题:
 padding,margin设置百分比时都是相对于父元素的宽度
 
@@ -56,6 +60,54 @@ flex弹性盒子：
 
 
 
+媒体查询的使用方式:
+1.在link标签中通过media属性引入media="screen and (width:320px)"，缺点需要书写多次重复代码
+2.在css样式中通过@media screen and (width:320px){里面写样式}
+width指的是html视口layout-viewport的大小
+
+/* 横/坚屏 */
+  /* orientation: portrait | landscape(横屏) */       
+@media screen and (orientation:landscape) {
+       body {
+                background-color: rebeccapurple
+       }
+}
+respond.js是为了解决低版本浏览器不兼容媒体查询的插件,用法同html5shiv.js
+
+
+
+
+
+less语法:
+1.注释:
+    //注释 这是单行注释（静默注释），是给开发者看的，不会编译到css文件中
+    /*多行注释 会编译到css文件中，用户可见*/
+2.计算时若有单位则放在前面,如(88rem/20)
+3.混合器(类似于函数,可以设置参数默认值,注意在带参数时必须传参)
+.change(@normal:red,@link:yellow,@visit1ed:pink,@hover:purple,@active:blue){
+    color: @normal;
+    &:link{
+        color: @link
+    }
+    &:visited{
+        color: @visited
+    }
+    &:hover{
+        color: @hover
+    }
+    &:active{
+        color: @active
+    }
+
+    >b{
+        background-color: gray
+    }
+}
+4.继承(少用)
+//格式"&:extend(选择器)
+5.导入文件
+//格式:@import "src"或 @import url()//通常在开头
+
 
 
 
@@ -81,6 +133,10 @@ text-overflow，可以用来多行文本的情况下，用省略号“...”隐藏超出范围的文本 。
 
 
 
+触点图标需占满父元素
+        但这样背景图就会显示多余的精灵图
+        处理方式：
+        用padding撑开盒子然后background-origin:content-box和background-clip:content-box
 
 用background-origin和background-clip设置触点导航可加大触点面积而不影响精灵图的显示
 
@@ -94,21 +150,28 @@ padding-box： 从padding区域（不含padding）开始向外裁剪背景。
 border-box： 从border区域（不含border）开始向外裁剪背景。 
 content-box： 从content区域开始向外裁剪背景。 
 text： 从前景内容的形状（比如文字）作为裁剪区域向外裁剪，如此即可实现使用背景作为填充色之类的遮罩效果
+需要注意的是:背景图片默认是从padding开始显示(即background-origin默认为padding-box)，所以设置background-clip时
+就要先设置背景图从边框开始显示即设置background-origin:border-box;
+
+
+
+设置一栏固定另一栏随页面变化自适应(flex属性指按份数自动填充剩余部分)需要用flex布局（固定的一栏用width指定css宽度）
 
 
 
 
-设置一栏固定另一栏随页面变化自适应需要用flex布局（固定的一栏用width指定css宽度）
-
-
-
-
-iScroll是一个javascript滚动插件，可以实现在移动端手指滑动可以移动一段距离，并且会有惯性效果 
+iScroll是一个javascript滚动插件，需要给父盒子设置overflow:hidden,可以实现在移动端手指滑动可以移动一段距离，并且会有惯性效果 
 
 
 
 console.time('timer');设置定时器
 console.timeEnd('timer');清除定时器,输出执行时间
+
+
+
+移动端touchEvent的touche对象的clientX/Y和pageX/pageY若想生效，必须写全viewport的设置
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+而screenX/Y不需要但是存在兼容性问题
 
 
 
