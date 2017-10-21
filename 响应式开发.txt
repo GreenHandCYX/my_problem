@@ -206,3 +206,22 @@ document.body.clientWidth
 
 bootstrap中通常在container容器中加一个class为row的div以达到通栏的效果,其原因是:
 container默认会有左右各15px的padding,而row有margin-left:-15px;margin-right:-15px;
+
+
+less.js也可以实时编译less，注意点:
+1.引入index.less
+    <link rel="stylesheet" href="./css/index.less">
+2.引入less.min.js
+    <script src="./js/less.js"></script>
+3.如果要在页面加载less必须放在服务器上打开页面
+
+
+
+
+rem单位不适合用在字体上,原因是rem单位最终会换算成px,px在屏幕上有时候会让文字出现毛边
+但是因为现在大多数屏幕的ppi在320以上 都可以称为retina屏幕(也就是高清屏)就不会出现这样的问题了
+
+
+flexible.js会将设计图和屏幕等分为10份
+
+进化的flexible 叫vh,vw(适口高,适口宽)

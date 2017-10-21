@@ -19,3 +19,176 @@ getMonth() 月份从0开始，所以用的时候需要加1；
 
 
 .回调函数：函数作为参数进行传递和调用 //回调函数一般用于定义一种规则；
+
+
+instanceof; A instanceof B; A是否是B构造出来的
+
+
+Array.isArray();  H5以后新增的一个方法，验证一个元素是否是数组
+
+
+toString转换成string;   valueOf转换成本身；
+
+
+数组的sort方法对原数组进行操作，并且按照数组中元素的首字母的unicode编码排序
+arr.sort(function(a,b){
+return a-b;升幂
+return b-a;降幂
+})
+参数的原理是冒泡排序中的前后两个元素是否交换位置的判断(即a-b>0或b-a>0对应arr[j]>arr[j+1]或arr[j+1]>arr[i])
+
+
+数组的concat方法返回一个新数组
+
+
+
+slice(start,end)//从当前数组中截取一个新的数组，不影响原来的数组，参数start从0开始,end从1开始，返回值是新的数组
+注意:1.参数包左不包右
+2.如果只有一个值，从此值到最后
+3.负值从后往前截取
+4.start的数值比end数值大时无法截取,返回[]
+
+
+
+
+splice删除或替换当前数组的某些项目，对原数组进行操作，返回值是被删除的元素
+1.一个参数时  arr3.splice(3);//把数组从指定位置删除到最后
+2.两个参数时  arr3.splice(3,1);//指定删除
+3.三个参数时(第三个参数是新的元素)  arr3.splice(3,1,4);//指定删除；然后替换
+4.添加时 arr3.splice(3,0,4);//指定添加，返回值为[]
+5.多个参数:只能一个一个放，如果直接放入数组，就会出现二维数组
+arr3.splice(3,3,"关羽","张飞","刘备","关羽","张飞","刘备","关羽","张飞","刘备");
+
+
+
+
+
+数组元素的遍历:
+
+1.every,类似于与运算
+//对数组中每一项运行回掉函数操作
+//如果都返回true，every返回true，如果有一项返回false，
+//则停止遍历 every返回false；不写return默认返回false
+arr.every(function(a,b,c){
+	//a代指当前遍历到的元素
+	//b指当前索引值
+	//c指数组本身
+	//注意:赋值时c[b]=55;而不能a=55;
+ 	return true;//返回true才会继续进行；
+
+	
+})
+
+2.some
+//同every相反,类似于或运算
+arr.some(function(ele,index,arr){
+	return false;
+})
+
+3.filter
+//对数组中每一项执行回调函数的操作
+//返回值为函数操作返回true的项所组成的新数组
+//都没有就是空数组
+arr.filter(function (element,index,array) {
+         if(element>550){
+             return true;//返回该true项组成的新数组
+         }
+   })
+
+4.foreach
+//无返回值，只对数组进行操作(不对元素组进行操作)
+var aaa = arr.forEach(function (element,index,array) {
+          if(element>100){
+              return true;
+          }
+      });
+
+console.log(aaa);//undefined
+
+5.map
+//对数组中的每一项执行函数
+//返回值为每一项执行函数后返回值所组成的新数组
+var newArr = arr.map(function (element, index, array) {
+       return element*10;
+})
+console.log(newArr);
+
+
+
+
+
+
+
+数组转为字符串
+1.arr.join(连接符)
+2.无参时默认用逗号连接
+3.需要无缝连接时则用""
+
+字符串转为数组
+string.split(拆分符)
+
+
+数组清空的方式：
+1.arr =[]或new Array();
+2.arr.length=0;
+3.arr.splice(0);//对原数组进行操作
+
+
+伪数组与数组的区别
+1.不能使用数组的方法
+2.但是可以调用数组的属性和遍历及赋值和取值
+
+
+
+arguments: 函数内部的一个内置对象；
+是实参组成的伪数组
+arguments是实参的个数
+而函数名.length才是形参的个数
+arguments.callee指函数名
+
+
+
+ 当我们操作简单数据类型的时候，调用方法和属性的时候，底层多了一个隐式转换，
+        把简单数据类型转换成包装类型，执行完毕再转换回来；绑定属性的时候就没有转换了；
+
+
+
+
+
+字符串的不可变性；字符串一旦确定，就不会在原有内存地址中修改，需要重新开辟内存空间，容易造成内存溢出
+
+
+charAt(0)    	//获取指定位置处字符
+charCodeAt()  	//获取指定位置处字符的ASCII码
+str[0]   	//HTML5，IE8+支持 和charAt()等效
+indexOf()       //类比数组，给字符，查找对应的字符的索引值；
+
+
+
+字符串的截取
+1.slice
+//    console.log(str.slice(0,3));//包左不包右；
+//    console.log(str.slice(3));//从3开始截取
+//    console.log(str.slice(-2));//从末尾开始截取
+//    console.log(str.slice(3,0));//识别错误输出空字符串"";
+2.substr第一个参数是起始位置,第二个参数是截取长度
+//    console.log(str.substr(3,3));//长度
+//    console.log(str.substr(3));//截取到最后
+//    console.log(str.substr(-2));//最后几个
+3.substring
+/    console.log(str.substring(0,3));
+//    console.log(str.substring(3));
+//    console.log(str.substring(-2));参数负值则将全部截取字符串
+//    console.log(str.substring(3,0));即使错误也会智能截取出正确字符
+
+
+
+字符串的trim方法只能去除字符串整体前后的空白
+
+string.search()      //给字符查索引(和正则有关)
+   // 如果查不到，返回-1；如果不完整包含，返回-1；
+   //如果完整包含，返回第一个字母对应的索引值
+
+
+
+不带var的全局变量在严格模式下不生效
