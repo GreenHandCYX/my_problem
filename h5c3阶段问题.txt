@@ -33,12 +33,26 @@ background-image:url()//通过背景图片显示标题
 }
 
 
+
 设置text-align时该元素必须是块元素
 a{
 display:block;
 text-align:right
 }
 
+
+
+background-attachment:fixed;设置背景图不随鼠标滚动
+默认为scroll指随鼠标滚动
+
+
+
+
+视差滚动
+概念:一般把网页解剖为:背景层,内容层和悬浮层,当鼠标滚动时各图层会以不同速度移动
+实质是让设置background-attachment:fixed的元素也具有随鼠标滚动的特性
+缺点:消耗前端,不适合内容比较多的网站
+原理:利用background-attachment:fixed + stellar.js
 
 
 h5新增DOM操作
@@ -87,14 +101,14 @@ progress(max,value当前值)进度条，不同浏览器不同
 
 
 网络状态检测
-注意:检测的是正常情况(wifi,局域网)，且是网络变化的瞬间
+注意:检测的是正常情况(wifi,局域网)，且是网络状态变化的瞬间
 1.在线:window.addEventListener('online',function(){})
 2.离线:window.addEventListener('offline',function(){})
 
 
 
 
-video标签的poster属性可用来添加字体图标
+video标签的poster属性可用来添加一个封面
 
 
 
@@ -180,6 +194,8 @@ video标签的poster属性可用来添加字体图标
   > 目标元素的事件
 
     dragenter 当用户拖动一个元素,进入目标元素边缘范围的时候,dragenter 事件就会触发
+注意:拖拽时需要阻止浏览器默认显示或打开图片或文件的默认事件
+在dragover和drop时必须都阻止
     dragover  当用户拖动一个元素,进入目标元素且在目标元素范围内,dragover事件就会触发，检测的是鼠标
     drop      当用户拖动一个元素被拖拽释放到一个有效的目标元素时,drop事件会触发
 
@@ -187,7 +203,7 @@ video标签的poster属性可用来添加字体图标
     ev.dataTransfer.setData(type,data) 设置拖动数据
     ev.dataTransfer.getData(type) 获取拖动数据
     ev.dataTransfer.files 本地文件列表
-
+注意：设置托动数据只能在dragstart中设置
 
 
 
@@ -312,3 +328,31 @@ display:inline-block;}
 
 
 css中通过*设置的样式无法在:after和:before内起作用
+
+
+
+清除浮动的方式:
+1.给父元素设置高度（只适合高度固定的布局）
+2.在浮动元素的后面加一个空的兄弟标签并设置样式为clear:both（不适合浮动布局较多的页面）
+3.给父元素加after伪类
+.clearfix:after{
+	content:'';
+	display:block;
+	visibility:hidden;
+	height:0;
+	line-height:0;
+	clear:both;
+}
+.clearfix{
+	*zoom:1
+}
+4.给父元素加overflow:hidden;超出盒子的部分也会被隐藏
+5.给父元素双伪元素法
+.clearfix:before,.clearfix:after{
+content:"";
+display:block;
+clear:both
+}
+.clearfix{
+	*zoom:1
+}
