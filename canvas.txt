@@ -95,3 +95,104 @@ fill的非零环绕原则(绘制路径是有方向的)：
         context.setLineDash([5,10,20]);
    //若是偶数，则不复制,第一个是线条的长度,第二个是间隔的长度
         context.setLineDash([5,10]);
+
+
+
+
+
+beginPath开启新路径之后,如果没有设置当前线段样式,为什么会使用之前设置的样式??
+答: 因为canvas绘图是基于状态的,beginPath只是相当于把笔从画布上拿起来另起了一条线 但是画笔的笔触颜色并没有换
+
+
+
+与canvas相关常见的技术都有什么？
+  1.webgl -- 画3d的 three.js
+  2.opengl -- flash
+
+
+
+
+context.arc(x, y, radius. startAngle. endAngle, anticlockwise)
+参数 anticlockwise 表示是否采用默认的正向角度, 如果传入 true 表示逆指针为正. 该参数可选.
+若要绘制扇形则需要绘制开始点（moveTo(圆心)）配合closePath一同使用
+
+
+
+
+
+context.strokeText( text, x, y)描边文字,注x,y是指文字左下角的坐标
+
+context.fillText(text, x, y)填充文字,注x,y是指文字左下角的坐标
+ 
+
+   
+
+
+
+context.measureText().width;
+计算文本尺寸
+
+
+context.font = value  
+设置文字字体和样式
+
+   
+默认值为: 10px sans-serif
+
+
+
+    
+
+context.textAlign = value   设置字体水平对齐方式
+该属性可以设置的值有: start( 默认 ), end, left, right, center.
+
+
+
+context.textBaseline = value  
+设置字体垂直对齐方式
+
+   
+该属性可以取值: top, middle, bottom, hanging, alphabetic(默认。文本基线是普通的字母基线), ideographic(基于参考点的直线)
+
+
+
+
+
+context.drawImage(img(src),dx(图片左上角的X轴坐标),dy(图片左上角的Y轴的坐标));
+注意绘制图像时其第一个参数为new Image()实例化后的图像,并且必须在图片onload后才放入
+
+context.drawImage( img(图片), dx(图片左上角的X轴坐标), dy(图片左上角的Y轴的坐标), dWidth(绘制区域的宽度), dHeight(绘制区域的高度) )
+会根据绘制区域强制更改图片大小，若保持原有比例则会造成图像失真
+
+绘制剪切图像
+
+   
+ context.drawImage( img, 图像剪切区域起始的x坐标, 图像剪切区域起始的y坐标,图像剪切区域的宽度, 图像剪切区域的高度, 绘制区域的x坐标, 绘制区域的y坐标,绘制区域的宽, 绘制区域的高)
+
+
+
+作用：
+      // 拖拽上传
+      // 预览显示
+      // 可以用canvas去裁切
+      // 保存 传入后台
+
+
+
+
+canvas中的所有变换都必须在绘制图形前调用，否则不会生效
+
+平移变换
+
+     translate(x,y)
+
+)不能只写一个参数
+
+旋转变换
+
+    rotate(deg)弧度 只能传类似30*Math.PI/180的参数 默认以坐标原点为变换中心       
+缩放变换
+
+    scale(sx,sy)必须传两个参数，代表水平和垂直的放大倍数，并且放大的不只是图形大小还有其边框粗细以及坐标位置的放大
+
+

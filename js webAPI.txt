@@ -1,0 +1,106 @@
+window.top和window.name都是window的属性,非严格模式下可以省略window
+window.name是一个空字符串
+window.top是只读的不能赋值
+
+
+全局变量和顶级函数，都是window的属性和方法；
+
+
+
+alert();confirm();prompt();也是window的内置方法而已；
+alert:    1.调用者是window;  2.没有返回值；     3.有参数；   4.弹窗提示；
+confirm:  1.调用者是window;  2.有返回值(bool)；  3.有参数；   4.弹窗选择；
+prompt:  1.调用者是window;  2.有返回值(str/null)；  3.有参数；   4.弹窗输入；
+
+
+ setInterval("fn(444)",1000);直接把字符串当执行语句也可以
+
+
+定时器的高级：
+    1.定时器有返回值，是定时器的编号；
+    2.定时器可以关闭，利用编号，也就是返回值； clearInterval/Timeout(编号);
+                //清除定时器，是定时器停止，不是函数停止，是下一次函数不执行了，这一次还要执行完毕；
+                //return是后面的代码不在执行；
+    3.定时器的执行，是在页面所有程序执行完毕后才执行的；
+
+
+location: window的一个属性而已; 只不过值是一个对象；
+属性
+          console.log(location.href      );//页面地址；
+          console.log(location.hash      );//返回url中#后面的内容，包含#
+          console.log(location.host      );//主机名，包括端口
+          console.log(location.hostname  );//主机名
+          console.log(location.pathname  );//url中的路径部分
+          console.log(location.protocol  );//协议 一般是http、https
+          console.log(location.search	   );//查询字符串
+
+方法
+	1.assign(): 页面跳转；记录到历史记录中；
+              console.log(location.assign());//不能读取；
+              location.assign("http://www.baidu.com")//只能让页面跳转
+
+        2.href;并且会记录在历史记录中
+              console.log(location.href);//能够获取，而且是被编译过的；
+              location.href = "http://www.taobao.com";//还能够让网页跳转
+
+        3.replace();   页面跳转，不会出现记录；
+              location.replace("http://www.jd.com");
+
+        4.reload();    页面刷新；重新加载；
+              location.reload();
+
+
+
+
+
+history:指的是前进后退刷新历史记录三部分；
+       三个方法:后退，前进，刷新；
+       back();forward();
+       go();  1:前进，0:刷新，-1
+
+
+navigator: 里面存放着浏览器的类型和运行的系统；
+        console.log(navigator.userAgent);//浏览器
+        console.log(navigator.platform);//系统
+
+
+
+document.getElementsByTagName();通过标签名获取元素节点组成的伪数组；0个也是伪空数组，可以缩小范围
+
+
+document.getElementsByClassName();通过类名获取元素;
+            //IE678不支持；不能缩小范围和byId一样；
+
+
+document.querySelector();   模拟css选择器；(只选择第一个)
+        //ie678不支持；可以缩小范围 
+
+
+document.querySelectorAll(); 模拟css选择器；(选择全部)//ie678不支持；可以缩小范围 
+
+
+
+window.onload: 整个页面上所有的内容，包括css渲染完毕，才能执行这个事件；
+
+
+1.正常属性;     title;name;src;value...
+2.特殊属性;     href;className;id;tagName(只读:大写);innerHTML/innerText;
+ 注:a.避免点击a链接时其href属性默认跳转页面的解决方式:return false；
+    b.通过className添加类名时必须加上其原有的类
+    c.tagName: 只读；且读到的为大写
+3.表单属性;     disabled;selected;checked;
+4.style属性;    style;返回值是对象；
+
+
+innerHTML和innerText和value的区别
+//value: 就是控制单闭合标签的value属性;
+//innerHTML: 双闭合标签内部的内容(识别标签);
+//innerText: 双闭合标签内部的内容(不识别标签);
+老版火狐不支持innerText需要用textContent
+ 	      function setTxt(ele,str){
+                    if(ele.innerText !== undefined){
+                        ele.innerText = str;
+                    }else{
+                        ele.textContent = str;
+                    }
+                }
