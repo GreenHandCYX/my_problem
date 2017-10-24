@@ -129,6 +129,17 @@ oninput检测表单输入事件，不支持ie678,用onpropertychange兼容
                 //first/lastElementChild;//ie678不认识他
                 //first/lastChild;//ie678只认识他
 
+4.所有子节点;    childNodes;  children;
+                        //w3c官方推荐childNodes;
+                        //我们用children;最好用；(ie678可能获取注释节点)
+//            var ul = li3.parentNode;
+//            console.log(ul.childNodes);//连注释节点都算
+//            console.log(ul.children);
 
+
+
+ //元素节点;属性节点;文本节点;对应nodeType为1，2，3
+  注释节点8；
+ele.getAttributeNode("id");//获取属性节点
 
 

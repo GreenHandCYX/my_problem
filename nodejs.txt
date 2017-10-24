@@ -69,12 +69,177 @@ console.log(name,age);//undefined 16
 
 扩展
 var {name,age,childs:{name,age}} ={name:'小明',age:16,childs:{name:'小小明',age:10}}
-
-
-
-
-
-node模块被加载时才能使用
 console.log(name);
 console.log(age);
 console.log(childs);//此时的childs是属性而非变量childs,所以报错
+
+
+
+
+字符串的扩展：
+
+//以某字符开头
+console.log(str.startsWith('my'))
+//以某字符结尾
+console.log(str.endsWith('my'));
+//任意位置是否包含某字符
+console.log(str.includes('is'));
+
+//重复某个字符
+var ha = '哈';
+console.log(ha.repeat(5));
+
+//用反引号创建的模板字符串可以解析变量
+let [name] = ['小明'];
+let str = `my name is ${name}`;
+console.log(str);
+
+
+
+
+
+
+数组的扩展:
+//创建一个新数组,一个参数时也作为数组的单元
+var arr4 = Array.of(2,3,4);
+console.log(arr4)
+
+//返回满足条件的项
+// var res = arr.find(function(val,key){
+//     // console.log(key,val)
+//     return val > 'a';
+// })
+
+//返回满足条件的项的索引
+var k = arr.findIndex(function(val,key){
+    // console.log(key,val)
+    return val > 'a';
+})
+
+var arr = Array.of('a','b','c');
+//将数组拆分输出而不是以数组的形式输出
+console.log(...arr);//a b c
+
+
+
+
+
+
+函数的扩展:
+//在es6中定义函数时可以设置默认参数值
+function sayHi(name='小红'){
+    console.log('你好'+name)
+}
+sayHi();
+
+//函数的解构赋值:
+//多余的实参可以以数组的形式赋值给...的形参
+function sayHi(name,age,...gender){
+    console.log(name);
+    console.log(age);
+    console.log(gender);
+}
+sayHi('小红',16,'女',98);
+
+
+箭头函数
+//具名函数
+let fn = (arg) => {
+    console.log(arg);
+    console.log('我是箭头函数')
+}
+fn('测试');
+
+//匿名函数
+setTimeout(()=>{
+    console.log('我是匿名的箭头函数')
+},2000);
+
+//简写
+var bar = () => 'hello';
+//相当于
+// var  bar = () => {return 'hello'};
+
+
+
+//在nodejs将很多常用功能进行了封装，称为模块
+
+
+//nodejs安装时会自动安装很多模块称为系统模块,如fs path os http
+
+
+
+
+os模块
+
+//os模块封装了读取系统信息的功能
+//使用os模块，需先使用require将其引入
+
+//require需传入系统模块的名称,并会得到一个返回值
+let os = require('os');
+// console.log(os)
+// console.log(os.hostname());
+// console.log(os.cpus());
+console.log(os.userInfo());
+
+
+
+
+fs模块
+
+//mkdir可以支持两个参数
+//第一个参数为目录名称
+//第二个参数为回调函数，操作创建结果，例如存在再创建则提示错误信息
+// fs.mkdir('test',(err) => {
+//     //如果有错误err为一个对象，描述错误的原因
+//     //如果没有错误为null
+//     console.log(err)
+// });
+
+//在指定文件中创建文件
+//第一个参数为指定要在哪里创建什么文件的路径
+//第二个参数为写入文件内的内容,不传会将undefined写入
+//第三个参数为回调函数
+fs.writeFile('./test/aa.html','<h1>hello world</h1>',(err)=>{
+    if(!err){
+        console.log('文件创建成功')
+    }
+});
+
+
+
+
+
+
+path模块
+//1.parse方法可以解析文件目录相关信息
+let img = './images/20171024/logo.png';
+// console.log(path.parse(img));
+
+
+// let {dir,name,ext} = path.parse(img);
+// console.log(dir,name,ext);
+
+
+
+//2.dirname方法可以直接获取目录名称
+// let dir = path.dirname(img);
+// console.log(dir)
+
+
+//3.extname方法可以获取文件后缀
+// let ext = path.extname(img);
+// console.log(ext)
+
+
+//4.join方法可以处理多个路径,会自动根据操作系统的类型加路径标识符/或\
+// console.log(path.join('./a','./b','./c'));// a/b/c
+//console.log(path.join('a','b','c','../d'));// a\b\d
+
+//Linux使用/
+//window使用 / 和 \
+
+var a = './abc/aa';
+var b = 'abc/b';
+// a+b;//./abc/aaabc/b
+console.log(path.join(a,b))//可以自动添加路径标识符
