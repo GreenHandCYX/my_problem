@@ -192,3 +192,19 @@ string.search()      //给字符查索引(和正则有关)
 
 
 不带var的全局变量在严格模式下不生效
+
+
+var arr3 = new Array(2,3);两个参数及两个参数以上就是数组元素
+// var arr3 = new Array(2);一个参数是数组长度
+console.log(arr3);
+
+
+
+
+
+
+
+
+
+
+

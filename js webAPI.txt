@@ -50,7 +50,7 @@ location: window的一个属性而已; 只不过值是一个对象；
               location.reload();
 
 
-
+alert(),confirm(),prompt()都是BOM的方法
 
 
 history:指的是前进后退刷新历史记录三部分；
@@ -104,3 +104,31 @@ innerHTML和innerText和value的区别
                         ele.textContent = str;
                     }
                 }
+
+
+
+
+style属性是一个对象，只能获取行内样式而不能获取内嵌和外链，赋值也是赋值到
+行内，获取不到返回""
+
+style.cssText可以把行内的样式当作字符串获取
+
+oninput检测表单输入事件，不支持ie678,用onpropertychange兼容
+
+
+
+1.parentNode; 父节点；兼容很好
+
+2.兄弟节点;  两类：前一个，后一个；兼容性不好；
+     带Element的是元素节点，不带Element的什么节点都获取；
+     	previous/nextElementSibling;
+      	revious/nextSibling;
+     ie678不支持带Element的；也就是ie678当初没有考虑到注释文本...
+
+3.单个子节点: 和兄弟节点一样；
+                //first/lastElementChild;//ie678不认识他
+                //first/lastChild;//ie678只认识他
+
+
+
+

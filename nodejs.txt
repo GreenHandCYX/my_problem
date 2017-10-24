@@ -1,0 +1,80 @@
+浏览器其实是ECMAScript的一个运行环境
+而nodejs是一个基于Chrome v8引擎的JavaScript运行环境，也可以称之为ECMAScript的一个运行环境
+Flash是ECMAScript的一个运行环境
+
+
+
+当ECMAScript运行在浏览器中时,我们称为javascript(JS)
+当ECMAScript运行在Nodejs中时,我们称为Nodejs
+当ECMAScript运行在Flash中时,我们称为ActionScript(AS)
+
+
+
+跨平台指运行在不同操作系统上的同一软件
+
+
+dom和bom是浏览器渲染环境扩展的，所以在nodejs中不可用dom和bom对象
+
+
+nodejs也对ECMAScript进行了扩展
+
+console是全局对象global的属性,global相当于浏览器的window对象
+
+
+alert(),confirm(),prompt()都是BOM的方法，在nodejs中也不适用
+
+
+
+es6中{}内都是块级作用域，块级变量外部不可访问
+
+
+
+
+let与const
+//使用let来创建一个块级变量
+//使用const来创建一个块级常量
+//常量声明必须有值
+//let和const不存在变量提升
+//let声明的变量不允许重复声明
+//const声明的常量不允许重复赋值
+
+
+
+
+
+
+解构赋值
+
+多余的数字若要赋给一个变量则要写为...变量（此时该变量为一个数组）
+[a,b,...c] = [1,2,3,4,5,6];
+
+//使用对象结构是根据左右两侧的属性来对应的
+//数组解构是根据左右两侧的索引值一一对应的
+
+//使用对象解构赋值时必须需要使用关键字声明，不加会作为对象或块解析而不是结构
+//使用数组解构赋值时必须不需要使用关键字声明
+
+单个字符串也有长度,也可以通过索引一一对应
+let [e,f,g] = 'abc';
+console.log(e,f,g)//a b c
+
+
+//使用对象解构时,可以简写,相当于var {name:name,age:age}={name:'小明',age:16}
+var {name,age}={name:'小明',age:16}
+console.log(name,age)
+
+//右边缺少用undefined补齐
+var {name,age}={age:16}
+console.log(name,age);//undefined 16
+
+扩展
+var {name,age,childs:{name,age}} ={name:'小明',age:16,childs:{name:'小小明',age:10}}
+
+
+
+
+
+node模块被加载时才能使用
+console.log(name);
+console.log(age);
+console.log(childs);//此时的childs是属性而非变量childs,所以报错
