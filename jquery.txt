@@ -1,0 +1,31 @@
+获得jquery对象的方式
+  // 1、为 $ 函数传一个 选择器
+  // 2、为 $ 函数传一个 原生DOM
+	通过$(原生DOM获取)
+  // 3、为 $ 函数传入一个 html 字符串
+        // $('<h1>测试呀</h1>');
+
+
+ // $('.box').find('.child').find('p').css().end().end().css();
+end()可以return回上一级,此处最后一个css就是给 $('.box')设置的
+
+
+ $('.box').append('<h1>测试</h1>')返回$('.box')
+$('<h1>测试</h1>').appendTo('.box');返回$('<h1>测试</h1>')
+
+
+
+/ $ 函数其实需要两个参数
+        $('p', '.box').css('color', 'red');代表在.box下查找p
+
+
+
+
+
+//trigger可以触发指定元素上的指定事件
+ $('.box').on('mouseover', function () {
+      $(this).css('background-color', 'blue');
+})
+$('button').on('click', function () {
+      $('.box').trigger('mouseover');
+})

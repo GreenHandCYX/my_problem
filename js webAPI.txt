@@ -143,3 +143,56 @@ oninput检测表单输入事件，不支持ie678,用onpropertychange兼容
 ele.getAttributeNode("id");//获取属性节点
 
 
+
+
+
+
+创建节点的方式:
+第一种: document.write();在文档中输入;(识别标签)
+        缺点：容易覆盖页面，所以几乎不用；
+//      document.write("<li>我是document.write()创建的li标签</li>");
+
+
+第二种: innerHTML;(识别标签)
+         优点：书写方便，多标签嵌套尤其好用;
+         缺点：容易把原有元素覆盖掉(可以解决);（字符串拼接）
+               老元素上的事件会被彻底覆盖掉;（事件委托）     
+//       ul.innerHTML += "<li>我是innerHTML创建的li标签</li>";
+
+
+第三种：document.createElement("标签名");
+         优点：不会影响老元素上的事件；
+         缺点：多标签嵌/属性套尤其不好用;
+
+
+添加子元素到父元素中：
+         1. ul.appendChild(newLi);//把newLi添加到ul所有子元素的岁末尾；
+	如果直接添加则会将该元素移动
+
+	 2. 父节点.insertBefore(A,B);把A以父节点的子节点的形式放到B之前；
+	    特殊点：参考节点不能不写
+            如果是null和undefined那么功能和appendChild一样；
+
+
+删除节点有两种方法：
+//父节点.removeChild();
+//拓展：自己删除自己；
+        li2.parentNode.removeChild(li2);
+//H5之后新增的;自己删除自己        li.remove();
+
+
+复制节点：1.深层复制；  2.浅层复制；
+       var newLi2 = li2.cloneNode();//不写参数和false；都是浅层复制；
+
+
+节点的替换; 
+父节点.replaceChild(A,B);用A替换父节点中的B
+       var newLi2 = li2.cloneNode(true);//true是连同内容一同复制；
+                		ul.insertBefore(newLi,null);
+
+
+
+console.log(event.srcElement);
+ console.dir(event.target);//事件引发者（HTML对象）
+ console.dir(this)//当前事件的DOM对象
+    

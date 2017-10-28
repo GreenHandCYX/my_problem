@@ -264,3 +264,20 @@ npm install 模块名 --registry=其他地址
 
 也可以通过配置npm可以实现默认为淘宝的地址
 nmp config set registry https://registry.npm.taobao.org
+
+
+
+
+
+
+
+路径的概念：
+网络路径(服务器访问地址 )与目录不是一一对应的
+网络路径中 / 表示项目的根
+
+文件路径与目录是一一对应的
+文件路径中 windows系统中盘符表示根 linux系统 /表示根
+
+相对路径是以.或..开头
+绝对路径是以根开头
+
