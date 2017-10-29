@@ -1,1 +1,4 @@
 构造函数的属性指this上绑定的属性而不是指构造函数直接.绑定的属性
+
+
+window.getSelection().toString()可以获取选中的文本

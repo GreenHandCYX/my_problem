@@ -267,6 +267,82 @@ nmp config set registry https://registry.npm.taobao.org
 
 
 
+使用npm进行本地安装时会优先查找当前目录下存不存在一个node_modules的目录,存在就在这个目录下安装模块，如果不存在则去上一级
+目录（只指一级父目录）查有没有node_modules，如果都没有则在当前目录下创建一个 node_modules并在其下安装模块
+
+
+
+
+require:
+
+1.require();如果参数没有以../或./开头会自动当作模块处理，并且会在当前目录下查找有没有node_modules这样一个特殊目录,m
+如没有则去其上一级目录查找(只指一级父目录),若没有node_modules则会将require加载的模块视为系统模块
+
+
+2.nodejs会自动将.js和.json结尾的文件视为模块，所以在require加载模块时,可以不加后缀
+
+
+3.在加载一个模块文件包（多个文件组成的一个目录）时，会优先查找其目录中有没有index.js，如果有则当作一个目录对待，如果没有则视为.js或.json文件
+
+4.模块文件包通常需要一个说明称为包描述文件（这个文件的名字固定的为package.json，在这个描述文件中可以写任意内容，只要符合json语法，但有几项是必须的如版本号，模块名，作者）
+一般通过npm用命令行创建，需要在这个包的 根目录下 通过 npm init 创建
+当包中不办含index.js时，会使用package.json中main指定的入口
+
+
+
+
+
+
+nodejs新增了一个专门将模块内部函数或变量公开的对象module.exports相当于模块的返回值，在require时当作返回值返回
+用法:
+module.exports.add = function(){};
+module.exports = {
+	add:function(){}
+}
+exports类似于module.exports相当于exports = module.exports
+此时就只能在exports对象上加属性而不能把一个新对象赋给它
+exports.add = {}
+exports ={}//错误，就不再指向module.exports了
+
+
+
+
+
+http模块中处理传递的参数:传递方式(req.method)
+1.get方式的参数通过url模块来处理:nodejs中的url系统模块可用来专门处理地址上的参数
+url.parse(req.url,true).query
+2.post方式的参数通过监听data事件和end事件来获取,通过querystring模块来处理
+var postdata = '';
+req.on('data',(chunk)=>{
+postdata += chunk;
+})
+req.on('end',()=>{
+console.log(querystring.parse(postdata))
+})
+
+
+通过 url.parse(req.url).pathname来获取路由
+
+
+
+
+fs.readFile读取指定的内容作为响应结果传回页面
+        //fs模块的readfile方法第二个参数是防止解析时编码造成的错误
+        fs.readFile('./index.html','utf-8',(err,data)=>{
+            //data指读取到的内容
+           if(!err){
+                res.write(data);
+                res.end();
+           }
+        })
+
+
+
+ 通过mime模块的getType属性获取指定路径的MIME类型
+ 'Content-Type':mime.getType(realPath)
+
+
+
 
 
 
@@ -281,3 +357,93 @@ nmp config set registry https://registry.npm.taobao.org
 相对路径是以.或..开头
 绝对路径是以根开头
 
+
+
+
+
+
+全局模块less对less文件进行编译
+//lessc .\base.less base.css
+
+
+
+通过browser-sync模块可以实现对css，html等文件的实时更改同步
+// browser-sync start --server --files "**/*.css, **/*.html"
+
+
+
+
+gulp模块（需要在全局和本地都安装）
+//全局的gulp(通过命令行+任务名)用来执行任务
+//本地的gulp(在js文件中引用)用来制定任务
+gulp模块的作用:
+//可以将压缩css作为一个任务
+//也可将less转成css当成一个任务
+//也可以将js进行合并当成一个任务
+用法：
+//将less转为css  通过模块gulp-less
+gulp.task('less2css',function(){
+    //只要将任务执行就可以实现了
+    console.log('css转换成功');
+    //通过gulp.src指定需要将那些资源进行转换(路径)
+    //通过模块gulp-less来实现真正的转换,需要通过pipe传递给less,再通过gulp.dest将处理后的文件放置在./css文件（不存在该文件会自动创建）下
+    gulp.src('./less/*.less').pipe(less()).pipe(gulp.dest('./css'));
+   
+})
+//合并js   通过模块gulp-concat
+gulp.task('hebing',function(){
+    //将你要执行的任务代码放在这
+     //通过gulp.src指定需要合并的资源(路径)
+     //通过模块gulp-concat可以实现js的合并
+     gulp.src('./libs/*.js').pipe(concat('a.js')).pipe(gulp.dest('./js'));
+
+})
+
+
+
+
+
+
+
+//配置模板引擎
+//更改默认查找路径，默认是在/下查找
+template.defaults.root = __dirname;
+// 默认后缀名。默认是'.art'
+template.defaults.extname = '.html';
+
+这些设置之后调用template(模板路径名,数据),其中的第一个参数就会自动解析为root下的后缀为extname的模板路径名
+
+//为防止在读取页面对页面本身的模板也进行解析需要更改后台模板引擎的默认解析模式（将{{}}改为## ##）
+template.defaults.rules[1].test = /##([@#]?)[ \t]*(\/?)([\w\W]*?)[ \t]*##/;
+
+
+
+//使用第三方模块来操作数据库
+let mysql = require('mysql');
+//通过mysql模块提供的的方法实现对mysql数据库的操作
+//有如下方法:
+//a)连接数据库
+let connection = mysql.createConnection({
+    host     : '127.0.0.1',
+    user     : 'root',
+    password : '123456',
+    database : 'wish'
+})
+//b)执行SQL语句
+//查询
+connection.query('SELECT * FROM lists',(err,rows)=>{
+    if(!err){
+        console.log(rows);
+    }
+})
+
+
+
+为了避免字符串的拼接mysql模块进行了封装处理，可以使用?充当一个占位符，表示此处将来会替换为一个变量
+// let username = 'itcast';
+// let no = 1;
+// connection.query("select * from lists where username = ? and no = ?",[username,no],(err,rows)=>{
+//     console.log(rows)
+// })
+也可以将问号视为一个条件
+ connection.query('INSERT INTO lists SET ?',{username:username,no:no})

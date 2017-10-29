@@ -74,7 +74,7 @@ $('form').serialize() ĞòÁĞ»¯±íµ¥£¨¼´¸ñÊ½»¯key=val&key=val£©
 jqueryµÄajaxÖĞbeforeSendÈôreturn falseÔòÖÕÖ¹Õû¸öÇëÇó
 
 jqueryµÄajaxÄ¬ÈÏ²»»á½«ÇëÇóÀ´µÄjson¸ñÊ½µÄÊı¾İ½øĞĞ½âÂë:
-½â¾ö·½Ê½:1.ÔÚÄ¿±êÎÄ¼şÖĞÉèÖÃÏìÓ¦Í·Îªheader('Content-Type:text/json');
+½â¾ö·½Ê½:1.ÔÚÄ¿±êÎÄ¼şÖĞÉèÖÃÏìÓ¦Í·Îªheader('Content-Type:application/json');
 	2.ÔÚsuccessÖĞ×ªÂëJSON.parse(info)
               	
 
@@ -260,7 +260,7 @@ AJAX£¨Asynchronous JavaScript and XML£©Òì²½Ö¸³ÌĞòµÄÖ´ĞĞË³Ğò²»ÒÀÀµ³ÌĞò±¾ÉíµÄÊéĞ´Ë
 XMLHttpRequest±¾ÖÊ»ùÓÚHTTPĞ­ÒéÊµÏÖÍ¨ĞÅ
 
 
-ÓÉÓÚreadystatechangeÊÂ¼şÊÇÔÚxhr¶ÔÏó×´Ì¬±ä»¯Ê±´¥·¢£¬Ò²¾ÍÒâÎ¶×ÅÕâ¼şÊÂ»á±»´¥·¢¶à
+ÓÉÓÚreadystatechangeÊÂ¼şÊÇÔÚxhr¶ÔÏó×´Ì¬±ä»¯Ê±´¥·¢£¬Ò²¾ÍÒâÎ¶×ÅÕâ¼şÊÂ»á±»´¥·¢¶à´Î
 
 
 
@@ -282,13 +282,51 @@ xhr.responseText
 
 
 
-
 JSONÊı¾İÔÚ²»Í¬ÓïÑÔ½øĞĞ´«ÊäÊ±£¬ÀàĞÍÎª×Ö·û´®£¬²»Í¬µÄÓïÑÔ¸÷×ÔÒ²¶¼¶ÔÓ¦ÓĞ½âÎö·½·¨£¬ĞèÒª½âÎöÍê³Éºó²ÅÄÜ¶ÁÈ¡
 
 
 JavaScript½âÎö·½·¨£ºJSON.parse()¡¢JSON.stringify()
 
 PHP½âÎö·½·¨:json_encode()¡¢json_decode()
+
+
+
+js¼æÈİJSON.parseºÍJSON.stringifyĞèÒªÒıÈëjson2.js
+
+IE5¡¢IE6ÖĞÊ¹ÓÃ ActiveObject("Microsoft.XMLHTTP")´úÌæXMLHttpRequest
+
+
+
+
+XMLHttpRequest2.0
+1.¼àÌı³¬Ê±ÊÂ¼ş xhr.ontimeout = function () {// code}
+µ±ÇëÇó³¬Ê±£¬´ËÊÂ¼ş¾Í»á±»´¥·¢
+
+
+2.FormData
+a)Ìá¹©ÁËÒ»¸öĞÂµÄÄÚ½¨¶ÔÏó£¬¿ÉÓÃÓÚ¹ÜÀí±íµ¥Êı¾İ
+b)Ê×ÏÈÒª»ñÈ¡Ò»¸ö±íµ¥ÔªËØform
+c)È»ºóÔÚÊµÀı»¯Ê± new FormData(form)£¬½«±íµ¥ÔªËØform´«½øÈ¥
+d)»á·µ»ØÒ»¸ö¶ÔÏó£¬´Ë¶ÔÏó¿ÉÒÔÖ±½Ó×öÎªxhr.send(formData)µÄ²ÎÊı£¨¿ÉÒÔÍ¨¹ı¸Ã¶ÔÏóµÄapeend()·½·¨×·¼ÓÊı¾İ£©
+e)´ËÊ±ÎÒÃÇµÄÊı¾İ¾ÍÊÇÒÔ¶ş½øÖÆĞÎÊ½´«µİÁË
+f)×¢ÒâÎÒÃÇÕâÀïÖ»ÄÜÒÔpostĞÎÊ½´«µİ²¢ÇÒÖ»»á»ñÈ¡±íµ¥ÖĞ´ønameµÄÖµ£¬ä¯ÀÀÆ÷»á×Ô¶¯ÎªÎÒÃÇÉèÖÃÒ»¸öºÏÊÊµÄÇëÇóÍ·
+¿ÉÒÔÓÃÀ´´¦ÀíÎÄ¼şÉÏ´«
+var formdata = new FormData(form);
+formdata.append('upfile',file.files[0]);
+xhr.send(formdata)
+
+
+
+3.ÉÏ´«½ø¶È
+a)	 ÀûÓÃXMLHttpRequestÎÒÃÇ¿ÉÒÔÊµÏÖÎÄ¼şµÄÉÏ´«
+b)	 ²¢ÇÒÎÒÃÇ¿ÉÒÔÍ¨¹ıxhr.upload.onprogress = function (ev) {// code}£¬¼àÌıÉÏ´«µÄ½ø¶È
+c)	 ÕâÊ±ÎÒÃÇÉÏ´«µÄ½ø¶ÈĞÅÏ¢»á±£´æÔÚÊÂ¼ş¶ÔÏóevÀï
+d)	 ev.loaded ±íÊ¾ÒÑÉÏ´«µÄ´óĞ¡£¬ev.total±íÊ¾ÎÄ¼şÕûÌåµÄ´óĞ¡
+e)	 var percent = ev.loaded / ev.total
+
+
+
+
 
 
 
