@@ -291,7 +291,14 @@ PHP解析方法:json_encode()、json_decode()
 
 
 
-js兼容JSON.parse和JSON.stringify需要引入json2.js
+js兼容JSON.parse和JSON.stringify需要引入json2.js，
+原理：通过eval可以将字符串按着javascript的语法进行解析
+ var str = 'alert(1)';
+        var json = '{"name":小明,"age":16}';
+        eval('(' + str + ')');
+        eval('(' + json + ')');
+
+
 
 IE5、IE6中使用 ActiveObject("Microsoft.XMLHTTP")代替XMLHttpRequest
 
@@ -325,6 +332,22 @@ d)	 ev.loaded 表示已上传的大小，ev.total表示文件整体的大小
 e)	 var percent = ev.loaded / ev.total
 
 
+
+template-web.js插件要求传入的第二个参数必须为一个对象
+
+
+
+
+jquery的ajax会根据服务器端的响应头的格式判断是否解码json，默认不解码
+所以就需要在php中设置响应头header('Content-Type:text/json');
+
+
+$.ajax会自动根据请求方式设置请求头
+
+
+在ajax中当传递的参数为对象格式时
+即xhr.send({"key":"val"})时必须要设置请求头
+为Content-Type:application/json
 
 
 
