@@ -447,3 +447,13 @@ connection.query('SELECT * FROM lists',(err,rows)=>{
 // })
 也可以将问号视为一个条件
  connection.query('INSERT INTO lists SET ?',{username:username,no:no})
+
+
+
+
+
+npm init可以将依赖的信息放入到package.json中
+再安装其他模块时需npm i mysql --save将依赖信息放入package.json中
+这样在删除或没有node_modules时直接通过npm i 就会自动加载package.json中的依赖项
+
+npm i gulp --save-dev指安装只在开发阶段所依赖的模块

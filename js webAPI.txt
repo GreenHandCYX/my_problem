@@ -212,3 +212,31 @@ ie678只有冒泡和目标，没有捕获；
 <!--2.#    === 跳转到最顶端;-->
 <!--3.javascript:;  ===  点击无跳转-->
 <!--4.javascript:void(0);  ===  点击无跳转-->
+
+
+
+
+
+
+三大系列都是number,不带单位
+
+
+
+
+offsetWidth和offsetHeight检测盒子的宽高(包括padding和border)，和是否行内式无关
+offsetWidth/Height = width/height + padding + border
+
+
+
+offsetLeft/Top   1.检测盒子距离父系盒子中最近的带有定位的盒子的距离;
+        	 2.如果都没有，那么以浏览器为基准;（不是body）
+
+
+offsetParent	获取最近的父系盒子中带有定位的盒子本身；如果都没有获取body
+
+
+offsetLeft与style.left的区别：
+//	  一、最大区别在于offsetLeft可以返回没有定位盒子的距离左侧的位置。而style.left不可以
+//        二、offsetLeft 返回的是数字，而 style.left 返回的是字符串，除了数字外还带有单位：px。
+//        三、offsetLeft 只读，而 style.left 可读写。（只读是获取值，可写是赋值）
+//        四、如果没有给 HTML 元素指定过 left 样式，则style.left 返回的是空字符串。
