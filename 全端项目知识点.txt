@@ -1,0 +1,80 @@
+github:
+
+
+1.github中https的路径只允许下载不允许上传，除非登陆
+而ssh路径可以在发送公钥后免密登陆
+
+2.pull requests指其他用户的提交对代码的改变
+
+
+3.insights查看提交用户信息表
+
+
+给远程访问地址起别名
+git remote add letao git@github.com:GreenHandCYX/stageNine.git
+
+git remote show letao
+
+git remote remove letao
+
+
+
+可以自动在partner文件夹下git init,然后clone指定网络地址，同时会拷贝别名
+git remote clone git@github.com:GreenHandCYX/stageNine.git  partner
+
+
+
+如果在已存在master（提交了一次）的树干上再创建一个树干会报错,解决方式:
+1.删除之前的再本地创建
+2.克隆之后创建
+
+
+
+
+
+
+
+
+
+
+apache实现反向代理的方式:
+1.在apache/conf/extra更改httpd-vhosts虚拟主机的配置
+<VirtualHost *:80>
+    ServerAdmin webmaster@dummy-host.cyx.com
+    #虚拟主机根目录
+    DocumentRoot "D:\myProjectRoot\github\stageNine\letao\web"
+    #域名
+    ServerName www.letao.com
+    #别名
+    ServerAlias letao.com
+    ErrorLog "logs/dummy-host.cyx.com-error.log"
+    CustomLog "logs/dummy-host.cyx.com-access.log" common
+
+   #关闭正向代理 转为反向代理
+    ProxyRequests Off
+    ProxyPass /api http://localhost:3000
+
+</VirtualHost>
+
+
+2.在apache/conf/httpd-confg
+LoadModule proxy_http_module modules/mod_proxy_http.so
+LoadModule proxy_module modules/mod_proxy.so
+
+
+
+
+Express 应用生成器 自动生成项目结构
+$ npm install express-generator -g
+
+express myapp（项目名称）
+此时的启动文件(入口文件)在bin/www下
+所以运行时需node bin/www或者是按package.json中的配置npm start
+
+注意：需在新项目中安装依赖的模块node_modules
+
+
+
+
+
+git checkout -b feature-login   创建并切换到该分支
