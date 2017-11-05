@@ -356,3 +356,6 @@ clear:both
 .clearfix{
 	*zoom:1
 }
+
+
+在ie6中浮动元素如果加margin会出现双边距问题,解决方式：display:inline
