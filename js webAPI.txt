@@ -240,3 +240,92 @@ offsetLeft与style.left的区别：
 //        二、offsetLeft 返回的是数字，而 style.left 返回的是字符串，除了数字外还带有单位：px。
 //        三、offsetLeft 只读，而 style.left 可读写。（只读是获取值，可写是赋值）
 //        四、如果没有给 HTML 元素指定过 left 样式，则style.left 返回的是空字符串。
+//        五、在读取小数点的数值时,offsetLeft返回的是四舍五入后的值,而style.left返回的是精确的值
+
+
+scrollWidth/Height: 检测盒子的宽高；(不包含border，会被内容影响)
+
+scrolllTop/Left整个网页被遮挡住的顶部或者左侧部分;调用者为body/html
+
+最常用的页面滑动事件就是：window.onscroll调用者：window,document,body;   不能是html;
+
+//兼容写法：
+function scrollTop(){
+     //正常浏览器支持；        //ie678支持他；
+      var aaa = window.pageYOffset || document.documentElement.scrollTop;
+      return aaa;
+ }
+
+
+让页面移动：window.scrollTo(x,y);
+
+
+
+
+
+clientHeight/clientWidth:调用者不同，功能不同;
+         1.调用者是盒子;         检测盒子的宽高;(不带border,不被内容撑开)
+         2.调用者是body/html:    浏览器可视区域的宽高;
+
+clientTop/clientLeft: border的宽高(厚度);(上面的左面)
+
+
+function clientWidth(){
+            return window.innerWidth || document.documentElement.clientWidth;
+        }
+
+
+
+
+
+获取作用在元素上的最高权限属性值
+  普通浏览器：    window.getComputedStyle;
+  IE678:        元素.currentStyle;
+
+function getStyle(ele,attr){
+	if(window.getComputedStyle){
+		return window.getComputedStyle(ele,null)[attr];
+	}else{
+		return ele.currentStyle[attr]
+	}
+}
+
+
+
+
+
+console.log(document.title);//获取的title标签的innerHTML属性
+html标签  document.documentElement
+
+
+
+
+
+
+//兼容获取事件对象event;
+    document.onclick = function (event) {
+        var event = event || window.event;
+        console.log(event);
+    };
+
+
+event.pageY光标相对于该网页的水平位置（ie678不支持）	 
+ie678: pageY = 页面被卷去的部分+鼠标在浏览器可视区域内的坐标
+	event.pageY || event.clientY +(window.pageYOffset || document.documentElement.scrollTop);
+
+
+
+//阻止冒泡
+  if(event.stopPropagation){
+              event.stopPropagation();//普通浏览器阻止事件传播
+          }else{
+              event.cancelBubble = true;//ie678阻止冒泡；
+          }
+
+
+
+
+
+this和event.target的区别：
+js中事件是会冒泡的，所以this是可以变化的，但event.target不会变化，它永远是直接接受事件的目标DOM元素；
+this和event.target都是dom对象
