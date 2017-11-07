@@ -78,3 +78,76 @@ express myapp（项目名称）
 
 
 git checkout -b feature-login   创建并切换到该分支
+
+
+
+
+
+
+git pull也是合并
+注意git不能修改同一行，其合并机制(merge或pull)是同一行号有没有来修改，不是则会出现冲突
+
+
+
+
+
+
+
+requrie.config({
+//shim:{
+//1.可以通过exports 将非模块的方法和属性公开出来
+//exports:
+//2.通过deps可以依赖其他模块
+//deps:['jquery']
+//}//可以实现将某些不支持AMD的第三方也只支持模块的功能
+
+
+paths:{
+	uploadify:''
+},
+
+shim:{
+	uploadify:{
+	deps:['jquery']	
+	}
+}
+)
+
+
+
+
+uploadify插件实现上传
+$('#upfile').uploadify
+
+
+
+
+
+
+
+
+
+
+NProgress.start() — 显示进度条
+
+NProgress.set(0.4) —设置百分比
+
+NProgress.inc() — 增加一点点
+
+NProgress.done() — 完成进度条
+
+
+
+
+
+
+
+
+
+jquery的AJAX将ajax分为六个阶段：
+        //准备发送阶段ajaxStart
+        //发送阶段ajaxSend
+        //成功/失败阶段ajaxSuccess/ajaxError
+        //完成阶段ajaxComplete
+        //结束阶段ajaxStop
+注意:这六个阶段函数只能通过$(document).ajaxStart调用
