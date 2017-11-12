@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		html,body {
+		margin:0;
+		padding:0;
+		height: 100%;
+		}
+
+		#left,
+		#right {
+		position: absolute;
+		top:0;
+		width: 220px;
+		height: 100%;
+		background-color: orange;
+		}
+
+		#left {
+		left:0;
+
+		}
+
+		#right {
+		right:0;
+		}
+
+		#main {
+		margin: 0 230px;
+		height: 100%;
+		}
+		/*如果中间栏含有最小宽度限制，或是含有宽度的内部元素，当浏览器宽度小到一定程度，会发生层重叠的情况*/
+</style>
+</head>
+<body>
+<div id="left">左边栏</div>
+<div id="main">主内容</div>
+<div id="right">右边栏</div>
+
+</body>
+</html>

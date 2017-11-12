@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#left,
+		#right {
+		float: left;
+		width: 220px;
+		height: 200px;
+		background: blue;
+		}
+				
+		#right{
+		float: right;
+		}
+				
+		#main {
+		margin: 0 230px;
+		background: red;
+		height: 200px;
+		}
+/*左右定宽度分别进行左浮动和右浮动，此时主内容列（中间列没有定度）主会自动插入到左右两列的中间，最要注意的一点是，中间列一定要放在左右两列的后*/
+	</style>
+</head>
+<body>
+<div id="left">left </div>
+<div id="right">right</div>
+<div id="main">mian</div>
+</body>
+</html>

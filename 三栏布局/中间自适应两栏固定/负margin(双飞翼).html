@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#main {
+		float: left;
+		width: 100%;
+		}
+		#mainContainer {
+		margin: 0 230px;
+		height: 200px;
+		background: green;
+		}
+		#left {
+		float: left;
+		margin-left: -100%;
+		width: 230px
+		}
+				
+		#right {
+		float: left;
+		margin-left: -230px;
+		width: 230px;
+		}
+				
+		#left .inner,
+		#right .inner {
+		background: orange;
+		margin: 0 10px;
+		height: 200px;
+		}
+		/*优点是三栏相互关联，有一定的抗性。需要注意的是，布局中间部分一定要放在前面，左右顺序不限制。*/
+	</style>
+</head>
+<body>
+	<div id="main">
+	<div id="mainContainer">main content</div>
+	</div>
+	<div id="left">
+	<div id="leftContainer" class="inner">left content</div>
+	</div>
+	<div id="right">
+	<div id="rightContainer" class="inner">right</div>
+	</div>
+</body>
+</html>

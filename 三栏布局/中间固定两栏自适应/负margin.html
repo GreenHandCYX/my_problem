@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		#left,
+		#right {
+		float: left;
+		margin: 0 0 0 -270px;
+		width: 50%;
+		*width: 49.9%;/*ie*/
+		}
+
+		#main {
+		width: 540px;
+		float: left;
+		background: green;
+		}
+			
+		.inner {
+		padding: 20px;
+		}
+			
+		#left .inner,
+		#right .inner {
+		margin: 0 0 0 270px;
+		background: orange;
+		}
+		/*负margin来实现的:首先我们在中间列定好固定值，因为此值是不会在改变的，接着对其进行左浮动；那么关键地主是在左右边栏设置地方，这种方法是将其都进行50%的宽度设置，并加上中负的左边距，此负的左边距最理想的值是中间栏宽度的一半加上1px，比如说此例中是"540px/2+1"也就是说他们都有一个"margin-left: -271px",这样一来，左右边栏内容无法正常显示，那是因为对他们进行了负的左边距操作，现在只需要在左右边栏的内层div.inner将其拉回来*/
+	</style>
+</head>
+<body>
+<div id="left">
+<div class="inner">this is left sidebar content</div>
+</div>
+<div id="main">
+<div class="inner">this is main content</div>
+</div>
+<div id="right">
+<div class="inner">this is right siderbar content</div>
+</div>
+
+</body>
+</html>		
