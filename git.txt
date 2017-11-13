@@ -1,0 +1,122 @@
+﻿svn与git的区别是：svn有中央服务器，但是各个终端无版本号，严重依赖网络
+                git没有中央服务器,但各个终端和裸仓库都有版本号
+
+
+
+git配置用户:
+git config --global user.name "自已的名字"
+git config --global user.email "自已的邮箱地址"
+--global 配置当前用户所有仓库
+注：配置用户只需要执行1次，可以重复使用
+
+
+
+.git的隐藏目录，这个目录包含了暂存区和仓库两个区域，有了这个隐藏目录就可以使用git来管理项目了，通过ls  -al 可以查看。
+
+
+注：git会忽略空的目录
+
+
+
+
+所有的提交（commit）实际上都是在分支（branch）的基础上进行的
+
+
+
+当我们在初始化仓库的时候（实际上是产生第1次提交时），Git会默认帮我们创建了一个master的分支，并且有指针（HEAD）指到了末端。
+指针（HEAD）用来标明当前处于哪个分支的哪个版本
+
+
+
+
+创建分支: git branch 分支名称,新分支会在当前分支原有历史版本的结点上进行创建，我们称其为子分支,新建的子分支会继承父分支的所有提交历史
+
+
+
+切换分支:git checkout cart(分支名称)
+
+
+删除分支
+git branch -d hotfix
+
+
+
+git merge branch需要写标识合并分支会产生新一次提交
+
+
+
+一个分支必须提交至少一次才算存在，包括master
+
+
+
+创建共享仓库
+Git要求共享仓库是一个以.git结尾的目录。
+mkdir repo.git 创建以.git结尾目录
+cd repo.git 进入这个目录
+git init --bare 初始化一个共享仓库，也叫裸仓库 注意选项--bare
+
+
+
+
+git init --bare生成一个裸仓库(.git结尾的文件夹),裸仓库无工作区
+
+
+
+将分支上传到裸仓库实现代码共享:
+git push demo.git feature-cart
+
+
+将裸仓库中的分支下载到本地仓库中
+git pull demo.git feature-cart
+
+
+
+将下载后的目标分支再提交到原先的分支上，就实现了双向实时更新
+git push demo.git master:feature-cart
+
+
+在服务器上建立裸仓库
+git push root@123.57.227.172:/root/demo.git feature-cart
+
+
+
+将本地计算机的公钥复制到目标服务器上，之后访问就可以免密码登陆
+ssh-copy-id user@host
+
+
+github:
+
+
+1.github中https的路径只允许下载不允许上传，除非登陆
+而ssh路径可以在发送公钥后免密登陆
+
+2.pull requests指其他用户的提交对代码的改变
+
+
+3.insights查看提交用户信息表
+
+
+给远程访问地址起别名
+git remote add letao git@github.com:GreenHandCYX/stageNine.git
+
+git remote show letao
+
+git remote remove letao
+
+
+
+可以自动在partner文件夹下git init,然后clone指定网络地址，同时会拷贝别名
+git remote clone git@github.com:GreenHandCYX/stageNine.git  partner
+
+
+
+如果在已存在master（提交了一次）的树干上再创建一个树干会报错,解决方式:
+1.删除之前的再本地创建
+2.克隆之后创建
+
+
+
+.gitignore文件中用来配置在push到github仓库时要忽略的文件即告诉Git哪些文件不需要添加到版本管理中。
+
+
+

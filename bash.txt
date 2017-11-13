@@ -1,0 +1,27 @@
+1.> 和 >>重定向，如echo hello world! > README.md，相当于将当前输出到shell上的内容放入一个指定文件中，>覆盖 >>追加
+
+2.  cat 查看文件全部内容，如 cat index.html,会一次性输出所有内容
+    less 查看文件，如more /etc/passwd、less /etc/passwd，分页显示内容，通过q键退出
+
+3.mv (move) 移动文件或重命名，如 mv index.html demo.html
+  cp (copy) 复制文件，cp index.html ./demo/index.html
+  touch 创建文件，如 touch index.html
+
+4.rm (remove) 删除文件，如 rm index.html、rm -rf  blog
+  rmdir (Remove Directory) 删除文件夹，只能删除空文件夹，不常用
+
+
+5.vi: vi编辑器提供了3种模式，分别是命令模式、插入模式、底行模式
+      1)底行模式 :e! 撤销更改，返回到上一次保存的状态
+      2)底行模式 :set nu 设置行号
+      3)命令模式 u辙销操作，可多次使用
+	  4)命令模式 dd删除当前行
+	  5)命令模式 yy复制当前行
+	  6)命令模式 p 粘贴内容
+	  7)命令模式 ctrl+f向前翻页
+	  8)命令模式 ctrl+b向后翻页
+	  9)命令模式 i进入编辑模式，当前光标处插入
+	  10)命令模式 a进入编辑模式，当前光标后插入
+	  11)命令模式 A进入编辑模式，光标移动到行尾
+	  12)命令模式 o进入编辑模式，当前行下面插入新行
+	  13)命令模式 O进入编辑模式，当前行上面插入新行

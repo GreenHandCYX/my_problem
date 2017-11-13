@@ -14,7 +14,7 @@ github:
 git remote add letao git@github.com:GreenHandCYX/stageNine.git
 
 git remote show letao
-
+功能分支
 git remote remove letao
 
 
@@ -24,6 +24,11 @@ git remote clone git@github.com:GreenHandCYX/stageNine.git  partner
 
 
 
+项目开发中往往需要一个develop分支，每写一个模块之前都要将完成的功能push到仓库中，然后运维通过develop合并这个
+
+
+//注意在localstorage中直接存储为数组后读取时为字符串
+$(ele).is('.icon_clear')判断一个元素是否是.icon_clear
 如果在已存在master（提交了一次）的树干上再创建一个树干会报错,解决方式:
 1.删除之前的再本地创建
 2.克隆之后创建
@@ -151,3 +156,9 @@ jquery的AJAX将ajax分为六个阶段：
         //完成阶段ajaxComplete
         //结束阶段ajaxStop
 注意:这六个阶段函数只能通过$(document).ajaxStart调用
+
+
+
+
+
+Number.toFixed(num) 方法可把 Number 四舍五入为指定小数位数的数字。参数num指保留几位小数，不足用0补齐

@@ -238,3 +238,9 @@ flexible.js会将设计图和屏幕等分为10份
 
 
 移动端的click事件在touchend事件之后触发
+
+
+
+在制作webapp时,通常可以利用Framework7，mui框架来实现ios手机和Android app的一些控件的功能
+http://dev.dcloud.net.cn/mui/
+http://www.framework7.cn/
