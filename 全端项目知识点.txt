@@ -29,7 +29,7 @@ git remote clone git@github.com:GreenHandCYX/stageNine.git  partner
 
 //注意在localstorage中直接存储为数组后读取时为字符串
 $(ele).is('.icon_clear')判断一个元素是否是.icon_clear
-如果在已存在master（提交了一次）的树干上再创建一个树干会报错,解决方式:
+如果在已存在master（提交了一次）的树干上 再创建一个树干会报错,解决方式:
 1.删除之前的再本地创建
 2.克隆之后创建
 
